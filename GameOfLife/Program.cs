@@ -18,12 +18,5 @@ namespace GameOfLife
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
-
-        static int CountNeighborsFinite(int x, int y)
-        {
-            int count = 0;
-            int xLen = universe.GetLength(0);
-            int yLen = universe.GetLength(1);
-        }
     }
 }
