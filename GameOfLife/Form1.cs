@@ -123,5 +123,56 @@ namespace GameOfLife
         {
             this.Close();
         }
+
+        private int CountNeighborsFinite(int x, int y)
+        {
+            int count = 0;
+
+            // get number of cells in the universe
+            int xLen = universe.GetLength(0);
+            int yLen = universe.GetLength(1);
+
+
+            // check all cells surrounding the current cell
+            for (int yOffset = -1; yOffset <= 1; yOffset++)
+            {
+                for (int xOffset = -1; xOffset <= 1; xOffset++)
+                {
+                    int xCheck = x + xOffset;
+                    int yCheck = y + yOffset;
+
+                    // skip current cell
+                    if (xOffset == 0 && yOffset == 0)
+                    {
+                        continue;
+                    }
+
+                    // skip cells not neighboring the current cell
+                    else if (xCheck < 0)
+                    {
+                        continue;
+                    }
+                    else if (yCheck < 0)
+                    {
+                        continue;
+                    }
+
+                    // skip cells outside of the universe
+                    else if (xCheck >= xLen)
+                    {
+                        continue;
+                    }
+                    else if (yCheck >= yLen)
+                    {
+                        continue;
+                    }
+
+                    // if within the bounds of the universe, increase the count by any remaining cells
+                    if (universe[xCheck, yCheck] == true) count++;
+                }
+            }
+
+            return count;
+        }
     }
 }
