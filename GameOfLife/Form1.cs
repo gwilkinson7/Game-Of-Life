@@ -174,5 +174,52 @@ namespace GameOfLife
 
             return count;
         }
+
+        private int CountNeighborsToroidal(int x, int y)
+        {
+            int count = 0;
+            int xLen = universe.GetLength(0);
+            int yLen = universe.GetLength(1);
+
+            for (int yOffset = -1; yOffset <= 1; yOffset++)
+            {
+                for (int xOffset = -1; xOffset <= 1; xOffset++)
+                {
+                    int xCheck = x + xOffset;
+                    int yCheck = y + yOffset;
+
+                    // skip current cell
+                    if (xOffset == 0 && yOffset == 0)
+                    {
+                        continue;
+                    }
+
+                    // if cell is on the left/bottom of the universe, set x/yCheck to the right/top
+                    else if (xCheck < 0)
+                    {
+                        xCheck = xLen - 1;
+                    }
+                    else if (yCheck < 0)
+                    {
+                        yCheck = yLen - 1;
+                    }
+
+                    // if cell is on the right/top of the universe, set x/yCheck to the left/bottom
+                    else if (xCheck >= xLen)
+                    {
+                        xCheck = 0;
+                    }
+                    else if (yCheck >= yLen)
+                    {
+                        yCheck = 0;
+                    }
+
+                    // if within the bounds of the universe, increase the count by any remaining cells
+                    if (universe[xCheck, yCheck] == true) count++;
+                }
+            }
+
+            return count;
+        }
     }
 }
