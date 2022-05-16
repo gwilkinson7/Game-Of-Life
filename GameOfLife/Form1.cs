@@ -32,13 +32,51 @@ namespace GameOfLife
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
-            timer.Enabled = true; // start timer running
+            timer.Enabled = false; // start timer running
         }
 
         // Calculate the next generation of cells
         private void NextGeneration()
         {
+            int xLen = universe.GetLength(0);
+            int yLen = universe.GetLength(1);
 
+            int count;
+
+            // iterate through universe to find cells that are "alive" and count neighbors
+            for (int x = 0; x < xLen; x++)
+            {
+                for (int y = 0; y < yLen; y++)
+                {
+                    count = CountNeighborsFinite(x, y);
+
+                    // if living
+                    if (universe[x, y] == true)
+                    {
+                        if (count < 2)
+                        {
+                            universe[x, y] = false;
+                        }
+                        else if (count > 3)
+                        {
+                            universe[x, y] = false;
+                        }
+                        else if (count == 2 || count == 3)
+                        {
+                            continue;
+                        }
+                    }
+
+                    // if dead
+                    else if (universe[x, y] == false)
+                    {
+                        if (count == 3)
+                        {
+                            universe[x, y] = true;
+                        }
+                    }
+                }
+            }
 
             // Increment generation count
             generations++;
@@ -220,6 +258,11 @@ namespace GameOfLife
             }
 
             return count;
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = true;
         }
     }
 }
