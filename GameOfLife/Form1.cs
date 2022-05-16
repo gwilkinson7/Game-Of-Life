@@ -264,5 +264,10 @@ namespace GameOfLife
         {
             timer.Enabled = true;
         }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = false;
+        }
     }
 }
