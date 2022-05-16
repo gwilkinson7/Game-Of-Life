@@ -269,5 +269,10 @@ namespace GameOfLife
         {
             timer.Enabled = false;
         }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            NextGeneration();
+        }
     }
 }
