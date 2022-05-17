@@ -13,7 +13,7 @@ namespace GameOfLife
     public partial class Form1 : Form
     {
         // The universe array
-        bool[,] universe = new bool[5, 5];
+        bool[,] universe = new bool[8, 5];
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -75,6 +75,9 @@ namespace GameOfLife
                             universe[x, y] = true;
                         }
                     }
+
+                    // repaint
+                    graphicsPanel1.Invalidate();
                 }
             }
 
@@ -273,6 +276,22 @@ namespace GameOfLife
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             NextGeneration();
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int xLen = universe.GetLength(0);
+            int yLen = universe.GetLength(1);
+
+            for (int x = 0; x < xLen; x++)
+            {
+                for (int y = 0; y < yLen; y++)
+                {
+                    universe[x, y] = false;
+                }
+            }
+
+            graphicsPanel1.Invalidate();
         }
     }
 }
