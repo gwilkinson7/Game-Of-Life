@@ -13,7 +13,7 @@ namespace GameOfLife
     public partial class Form1 : Form
     {
         // The universe array
-        bool[,] universe = new bool[8, 5];
+        static bool[,] universe = new bool[32, 20];
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -38,6 +38,8 @@ namespace GameOfLife
         // Calculate the next generation of cells
         private void NextGeneration()
         {
+            bool[,] scratchUniverse = (bool[,])universe.Clone();
+
             int xLen = universe.GetLength(0);
             int yLen = universe.GetLength(1);
 
@@ -55,11 +57,11 @@ namespace GameOfLife
                     {
                         if (count < 2)
                         {
-                            universe[x, y] = false;
+                            scratchUniverse[x, y] = false;
                         }
                         else if (count > 3)
                         {
-                            universe[x, y] = false;
+                            scratchUniverse[x, y] = false;
                         }
                         else if (count == 2 || count == 3)
                         {
@@ -72,14 +74,16 @@ namespace GameOfLife
                     {
                         if (count == 3)
                         {
-                            universe[x, y] = true;
+                            scratchUniverse[x, y] = true;
                         }
                     }
-
-                    // repaint
-                    graphicsPanel1.Invalidate();
                 }
             }
+
+            universe = scratchUniverse;
+
+            // repaint
+            graphicsPanel1.Invalidate();
 
             // Increment generation count
             generations++;
