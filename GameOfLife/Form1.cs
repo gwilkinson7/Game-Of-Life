@@ -13,7 +13,7 @@ namespace GameOfLife
     public partial class Form1 : Form
     {
         // The universe array
-        static bool[,] universe = new bool[32, 20];
+        static bool[,] universe = new bool[10, 10];
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -296,6 +296,22 @@ namespace GameOfLife
             }
 
             graphicsPanel1.Invalidate();
+        }
+
+        private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // create color dialog object
+            ColorDialog dialog = new ColorDialog();
+
+            // set the dialog objects color equal to the user selection
+            dialog.Color = graphicsPanel1.BackColor;
+
+            if(DialogResult.OK == dialog.ShowDialog())
+            {
+                graphicsPanel1.BackColor = dialog.Color;
+
+                graphicsPanel1.Invalidate();
+            }
         }
     }
 }
