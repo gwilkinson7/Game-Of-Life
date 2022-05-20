@@ -363,5 +363,25 @@ namespace GameOfLife
             // Save memory representation of the file
             Properties.Settings.Default.Save();
         }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+
+            // Reading properties
+            graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            universeType = Properties.Settings.Default.UniverseType;
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reload();
+
+            // Reading properties
+            graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            universeType = Properties.Settings.Default.UniverseType;
+        }
     }
 }
