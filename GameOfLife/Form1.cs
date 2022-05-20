@@ -80,7 +80,7 @@ namespace GameOfLife
                         }
                         else if (count == 2 || count == 3)
                         {
-                            continue;
+                            scratchUniverse[x, y] = true;
                         }
                     }
 
@@ -255,21 +255,21 @@ namespace GameOfLife
                     }
 
                     // if cell is on the left/bottom of the universe, set x/yCheck to the right/top
-                    else if (xCheck < 0)
+                    if (xCheck < 0)
                     {
                         xCheck = xLen - 1;
                     }
-                    else if (yCheck < 0)
+                    if (yCheck < 0)
                     {
                         yCheck = yLen - 1;
                     }
 
                     // if cell is on the right/top of the universe, set x/yCheck to the left/bottom
-                    else if (xCheck >= xLen)
+                    if (xCheck >= xLen)
                     {
                         xCheck = 0;
                     }
-                    else if (yCheck >= yLen)
+                    if (yCheck >= yLen)
                     {
                         yCheck = 0;
                     }
@@ -351,6 +351,18 @@ namespace GameOfLife
 
                 graphicsPanel1.Invalidate();
             }
+        }
+
+        // Universe Type Toroidal
+        private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            universeType = "Toroidal";
+        }
+
+        // Universe Type Finite
+        private void linearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            universeType = "Finite";
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
