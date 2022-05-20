@@ -303,7 +303,7 @@ namespace GameOfLife
             // create color dialog object
             ColorDialog dialog = new ColorDialog();
 
-            // set the dialog objects color equal to the user selection
+            // set the dialog objects color equal to the user selection(s)
             dialog.Color = graphicsPanel1.BackColor;
 
             if(DialogResult.OK == dialog.ShowDialog())
