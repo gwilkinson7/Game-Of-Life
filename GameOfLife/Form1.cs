@@ -17,7 +17,7 @@ namespace GameOfLife
 
         // Drawing colors
         Color gridColor = Color.Black;
-        Color cellColor = Color.Gray;
+        Color cellColor;
 
         // The Timer class
         Timer timer = new Timer();
@@ -31,6 +31,7 @@ namespace GameOfLife
 
             // Reading properties
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+            cellColor = Properties.Settings.Default.CellColor;
 
             // Setup the timer
             timer.Interval = 100; // milliseconds
@@ -270,21 +271,25 @@ namespace GameOfLife
             return count;
         }
 
+        // Play
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             timer.Enabled = true;
         }
 
+        // Pause
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
         }
 
+        // Next
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             NextGeneration();
         }
 
+        // New
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int xLen = universe.GetLength(0);
@@ -301,6 +306,7 @@ namespace GameOfLife
             graphicsPanel1.Invalidate();
         }
 
+        // Background Color
         private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // create color dialog object
@@ -318,19 +324,29 @@ namespace GameOfLife
             }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        // Cell Color
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            // Update Property
-            Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
+            // create color dialog object
+            ColorDialog dialog = new ColorDialog();
 
-            // Save memory representation of the file
-            Properties.Settings.Default.Save();
+            // set the dialog objects color equal to the user selection(s)
+            dialog.Color = graphicsPanel1.BackColor;
+
+            // run dialog box
+            if (DialogResult.OK == dialog.ShowDialog())
+            {
+                cellColor = dialog.Color;
+
+                graphicsPanel1.Invalidate();
+            }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Update Property
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
+            Properties.Settings.Default.CellColor = cellColor;
 
             // Save memory representation of the file
             Properties.Settings.Default.Save();

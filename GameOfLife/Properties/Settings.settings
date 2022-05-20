@@ -5,5 +5,8 @@
     <Setting Name="PanelColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">224, 224, 224</Value>
     </Setting>
+    <Setting Name="CellColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
