@@ -29,6 +29,9 @@ namespace GameOfLife
         {
             InitializeComponent();
 
+            // Reading properties
+            graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
+
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
@@ -306,12 +309,31 @@ namespace GameOfLife
             // set the dialog objects color equal to the user selection(s)
             dialog.Color = graphicsPanel1.BackColor;
 
+            // run dialog box
             if(DialogResult.OK == dialog.ShowDialog())
             {
                 graphicsPanel1.BackColor = dialog.Color;
 
                 graphicsPanel1.Invalidate();
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Update Property
+            Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
+
+            // Save memory representation of the file
+            Properties.Settings.Default.Save();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Update Property
+            Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
+
+            // Save memory representation of the file
+            Properties.Settings.Default.Save();
         }
     }
 }
