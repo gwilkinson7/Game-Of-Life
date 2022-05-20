@@ -15,6 +15,9 @@ namespace GameOfLife
         // The universe array
         static bool[,] universe = new bool[10, 10];
 
+        // Type of Universe
+        string universeType;
+
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor;
@@ -32,6 +35,7 @@ namespace GameOfLife
             // Reading properties
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
             cellColor = Properties.Settings.Default.CellColor;
+            universeType = Properties.Settings.Default.UniverseType;
 
             // Setup the timer
             timer.Interval = 100; // milliseconds
@@ -54,7 +58,14 @@ namespace GameOfLife
             {
                 for (int y = 0; y < yLen; y++)
                 {
-                    count = CountNeighborsFinite(x, y);
+                    if (universeType == "Finite")
+                    {
+                        count = CountNeighborsFinite(x, y);
+                    }
+                    else
+                    {
+                        count = CountNeighborsToroidal(x, y);
+                    }
 
                     // if living
                     if (universe[x, y] == true)
@@ -347,6 +358,7 @@ namespace GameOfLife
             // Update Property
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
             Properties.Settings.Default.CellColor = cellColor;
+            Properties.Settings.Default.UniverseType = universeType;
 
             // Save memory representation of the file
             Properties.Settings.Default.Save();

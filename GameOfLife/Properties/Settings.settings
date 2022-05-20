@@ -6,7 +6,10 @@
       <Value Profile="(Default)">224, 224, 224</Value>
     </Setting>
     <Setting Name="CellColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">White</Value>
+    </Setting>
+    <Setting Name="UniverseType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Finite</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -51,6 +51,11 @@ namespace GameOfLife
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.universeTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toroidalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.universeSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -65,11 +70,7 @@ namespace GameOfLife
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new GameOfLife.GraphicsPanel();
-            this.universeTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toroidalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.linearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.universeSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -222,7 +223,8 @@ namespace GameOfLife
             this.backgroundColorToolStripMenuItem,
             this.toolStripMenuItem1,
             this.universeTypeToolStripMenuItem,
-            this.universeSizeToolStripMenuItem});
+            this.universeSizeToolStripMenuItem,
+            this.resetToolStripMenuItem});
             this.optionsToolStripMenuItem1.Name = "optionsToolStripMenuItem1";
             this.optionsToolStripMenuItem1.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem1.Text = "&Options";
@@ -233,6 +235,40 @@ namespace GameOfLife
             this.backgroundColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.backgroundColorToolStripMenuItem.Text = "&Background Color";
             this.backgroundColorToolStripMenuItem.Click += new System.EventHandler(this.backgroundColorToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Text = "&Cell Color";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // universeTypeToolStripMenuItem
+            // 
+            this.universeTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toroidalToolStripMenuItem,
+            this.linearToolStripMenuItem});
+            this.universeTypeToolStripMenuItem.Name = "universeTypeToolStripMenuItem";
+            this.universeTypeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.universeTypeToolStripMenuItem.Text = "&Universe Type";
+            // 
+            // toroidalToolStripMenuItem
+            // 
+            this.toroidalToolStripMenuItem.Name = "toroidalToolStripMenuItem";
+            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toroidalToolStripMenuItem.Text = "&Toroidal";
+            // 
+            // linearToolStripMenuItem
+            // 
+            this.linearToolStripMenuItem.Name = "linearToolStripMenuItem";
+            this.linearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linearToolStripMenuItem.Text = "&Finite";
+            // 
+            // universeSizeToolStripMenuItem
+            // 
+            this.universeSizeToolStripMenuItem.Name = "universeSizeToolStripMenuItem";
+            this.universeSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.universeSizeToolStripMenuItem.Text = "&Universe Size";
             // 
             // toolStrip1
             // 
@@ -359,39 +395,11 @@ namespace GameOfLife
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
             // 
-            // universeTypeToolStripMenuItem
+            // resetToolStripMenuItem
             // 
-            this.universeTypeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toroidalToolStripMenuItem,
-            this.linearToolStripMenuItem});
-            this.universeTypeToolStripMenuItem.Name = "universeTypeToolStripMenuItem";
-            this.universeTypeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.universeTypeToolStripMenuItem.Text = "&Universe Type";
-            // 
-            // toroidalToolStripMenuItem
-            // 
-            this.toroidalToolStripMenuItem.Name = "toroidalToolStripMenuItem";
-            this.toroidalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.toroidalToolStripMenuItem.Text = "&Toroidal";
-            // 
-            // linearToolStripMenuItem
-            // 
-            this.linearToolStripMenuItem.Name = "linearToolStripMenuItem";
-            this.linearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.linearToolStripMenuItem.Text = "&Finite";
-            // 
-            // universeSizeToolStripMenuItem
-            // 
-            this.universeSizeToolStripMenuItem.Name = "universeSizeToolStripMenuItem";
-            this.universeSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.universeSizeToolStripMenuItem.Text = "&Universe Size";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem1.Text = "&Cell Color";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Text = "&Reset";
             // 
             // Form1
             // 
@@ -459,6 +467,7 @@ namespace GameOfLife
         private System.Windows.Forms.ToolStripMenuItem linearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem universeSizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }
 
