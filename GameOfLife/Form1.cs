@@ -450,5 +450,93 @@ namespace GameOfLife
                 writer.Close();
             }
         }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+
+                // Create a couple variables to calculate the width and height
+                // of the data in the file.
+                int maxWidth = 0;
+                int maxHeight = 0;
+
+                // Iterate through the file once to get its size.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then it is a comment
+                    // and should be ignored.
+                    if (row.StartsWith("!"))
+                    {
+                        continue;
+                    }
+
+                    // If the row is not a comment then it is a row of cells.
+                    // Increment the maxHeight variable for each row read.
+                    maxHeight += 1;
+
+                    // Get the length of the current row string
+                    // and adjust the maxWidth variable if necessary.
+                    maxWidth = row.Length;
+                }
+
+                // Resize the current universe and scratchPad
+                // to the width and height of the file calculated above.
+                universe = new bool[maxWidth, maxHeight];
+
+                // Reset the file pointer back to the beginning of the file.
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                int col = -1;
+
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if (row.StartsWith("!"))
+                    {
+                        continue;
+                    }
+
+                    col++;
+
+                    // If the row is not a comment then 
+                    // it is a row of cells and needs to be iterated through.
+                    for (int xPos = 0; xPos < row.Length; xPos++)
+                    {
+                        // If row[xPos] is a 'O' (capital O) then
+                        // set the corresponding cell in the universe to alive.
+                        if (row[xPos] == 'O')
+                        {
+                            universe[xPos, col] = true;
+                        }
+
+                        // If row[xPos] is a '.' (period) then
+                        // set the corresponding cell in the universe to dead.
+                        if (row[xPos] == '.')
+                        {
+                            universe[xPos, col] = false;
+                        }
+                    }
+                }
+
+                graphicsPanel1.Invalidate();
+
+                // Close the file.
+                reader.Close();
+            }
+        }
     }
 }
