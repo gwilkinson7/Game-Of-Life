@@ -413,7 +413,7 @@ namespace GameOfLife
                 // Use WriteLine to write the strings to the file. 
                 // It appends a CRLF for you.
                 writer.WriteLine("!This program was by Garrett Wilkinson.");
-                writer.WriteLine("!If your interested in hiring me, I'm looking for a job!");
+                writer.WriteLine("!If you're interested in hiring me, I'm looking for a job!");
                 writer.WriteLine("!Check out my github: https://github.com/gwilkinson7");
                 writer.WriteLine("!You can also reach out to me at garrettwilkinson7@gmail.com.");
 
