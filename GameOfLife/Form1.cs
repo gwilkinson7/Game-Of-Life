@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -394,6 +395,60 @@ namespace GameOfLife
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
             cellColor = Properties.Settings.Default.CellColor;
             universeType = Properties.Settings.Default.UniverseType;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamWriter writer = new StreamWriter(dlg.FileName);
+
+                // Write any comments you want to include first.
+                // Prefix all comment strings with an exclamation point.
+                // Use WriteLine to write the strings to the file. 
+                // It appends a CRLF for you.
+                writer.WriteLine("!This program was by Garrett Wilkinson.");
+                writer.WriteLine("!If your interested in hiring me, I'm looking for a job!");
+                writer.WriteLine("!Check out my github: https://github.com/gwilkinson7");
+                writer.WriteLine("!You can also reach out to me at garrettwilkinson7@gmail.com.");
+
+                // Iterate through the universe one row at a time.
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    // Create a string to represent the current row.
+                    String currentRow = string.Empty;
+
+                    // Iterate through the current row one cell at a time.
+                    for (int x = 0; x < universe.GetLength(0); x++)
+                    {
+                        // If the universe[x,y] is alive then append 'O' (capital O)
+                        // to the row string.
+                        if(universe[x, y] == true)
+                        {
+                            currentRow += 'O';
+                        }
+
+                        // Else if the universe[x,y] is dead then append '.' (period)
+                        // to the row string.
+                        else if(universe[x, y] == false)
+                        {
+                            currentRow += '.';
+                        }
+                    }
+
+                    // Once the current row has been read through and the 
+                    // string constructed then write it to the file using WriteLine.
+                    writer.WriteLine(currentRow);
+                }
+
+                // After all rows and columns have been written then close the file.
+                writer.Close();
+            }
         }
     }
 }
