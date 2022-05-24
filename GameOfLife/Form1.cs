@@ -14,7 +14,7 @@ namespace GameOfLife
     public partial class Form1 : Form
     {
         // The universe array
-        static bool[,] universe = new bool[10, 10];
+        public static bool[,] universe;
 
         // Type of Universe
         string universeType;
@@ -37,11 +37,42 @@ namespace GameOfLife
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
             cellColor = Properties.Settings.Default.CellColor;
             universeType = Properties.Settings.Default.UniverseType;
+            universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
 
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
+        }
+
+        private void Randomize()
+        {
+            // Time
+            Random rand = new Random();
+
+            // Seed
+
+            int xLen = universe.GetLength(0);
+            int yLen = universe.GetLength(1);
+
+            int val;
+
+            for (int x = 0; x < xLen; x++)
+            {
+                for (int y = 0; y < yLen; y++)
+                {
+                    val = rand.Next(0, 2);
+
+                    if (val == 0)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else if (val == 1 || val == 2)
+                    {
+                        universe[x, y] = false;
+                    }
+                }
+            }
         }
 
         // Calculate the next generation of cells
@@ -373,6 +404,8 @@ namespace GameOfLife
             Properties.Settings.Default.PanelColor = graphicsPanel1.BackColor;
             Properties.Settings.Default.CellColor = cellColor;
             Properties.Settings.Default.UniverseType = universeType;
+            Properties.Settings.Default.XValue = universe.GetLength(0);
+            Properties.Settings.Default.YValue = universe.GetLength(1);
 
             // Save memory representation of the file
             Properties.Settings.Default.Save();
@@ -387,6 +420,9 @@ namespace GameOfLife
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
             cellColor = Properties.Settings.Default.CellColor;
             universeType = Properties.Settings.Default.UniverseType;
+            universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
+
+            graphicsPanel1.Invalidate();
         }
 
         // Reload
@@ -398,6 +434,9 @@ namespace GameOfLife
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
             cellColor = Properties.Settings.Default.CellColor;
             universeType = Properties.Settings.Default.UniverseType;
+            universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
+
+            graphicsPanel1.Invalidate();
         }
 
 
@@ -636,5 +675,81 @@ namespace GameOfLife
                 // Close the file.
                 reader.Close();
             }
+        }
+
+        private void universeSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModalDialog dlg = new ModalDialog();
+
+            // set the properties
+            dlg.XValue = universe.GetLength(0);
+            dlg.YValue = universe.GetLength(1);
+
+            // subscribe to the Apply event
+            dlg.Apply += new ApplyEventHandler(dlg_Apply);
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                universe = new bool[dlg.XValue, dlg.YValue];
+                graphicsPanel1.Invalidate();
+            }
+        }
+
+        void dlg_Apply(object sender, ApplyEventArgs e)
+        {
+            // Retrieve the event arguments
+            int x = e.XValue;
+            int y = e.YValue;
+        }
+
+        private void randomizeByTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random rand = new Random();
+            int temp;
+
+            for (int x = 0; x < universe.GetLength(0); x++)
+            {
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    temp = rand.Next(0, 3);
+
+                    if (temp == 0)
+                    {
+                        universe[x, y] = true;
+                    }
+                    else
+                    {
+                        universe[x, y] = false;
+                    }
+                }
+            }
+
+            graphicsPanel1.Invalidate();
+        }
     }
+    public class ApplyEventArgs : EventArgs
+    {
+        int xValue;
+        int yValue;
+
+        public int XValue
+        {
+            get { return xValue; }
+            set { xValue = value; }
+        }
+
+        public int YValue
+        {
+            get { return yValue; }
+            set { yValue = value; }
+        }
+
+        public ApplyEventArgs(int xValue, int yValue)
+        {
+            this.xValue = xValue;
+            this.yValue = yValue;
+        }
+    }
+
+    public delegate void ApplyEventHandler(object sender, ApplyEventArgs e);
 }
