@@ -19,6 +19,9 @@ namespace GameOfLife
         // Type of Universe
         string universeType;
 
+        // seed for randomizing
+        public int seed;
+
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor;
@@ -702,6 +705,12 @@ namespace GameOfLife
             int y = e.YValue;
         }
 
+        void dlg_Randomize_Apply(object sender, ApplyRandomizeEventArgs e)
+        {
+            // retrieve the event arguments
+            seed = e.InternalSeed;
+        }
+
         private void randomizeByTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
@@ -725,6 +734,46 @@ namespace GameOfLife
             }
 
             graphicsPanel1.Invalidate();
+        }
+
+        private void randomizeBySeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RandomizeModalDialog dlg = new RandomizeModalDialog();
+
+            // set properties
+            dlg.InternalSeed = seed;
+
+            // subscribe to the apply event
+            dlg.RandomizeApply += new ApplyRandomizeEventHandler(dlg_Randomize_Apply);
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                // get properties
+                seed = dlg.InternalSeed;
+
+                Random rand = new Random(seed);
+                int temp;
+
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    for (int y = 0; y < universe.GetLength(1); y++)
+                    {
+                        temp = rand.Next(0, 3);
+
+                        if (temp == 0)
+                        {
+                            universe[x, y] = true;
+                        }
+                        else
+                        {
+                            universe[x, y] = false;
+                        }
+                    }
+                }
+            }
+
+            graphicsPanel1.Invalidate();
+
         }
     }
     public class ApplyEventArgs : EventArgs
@@ -752,4 +801,22 @@ namespace GameOfLife
     }
 
     public delegate void ApplyEventHandler(object sender, ApplyEventArgs e);
+
+    public class ApplyRandomizeEventArgs : EventArgs
+    {
+        int seed;
+
+        public int InternalSeed
+        {
+            get { return seed; }
+            set { seed = value; }
+        }
+
+        public ApplyRandomizeEventArgs(int seed)
+        {
+            this.seed = seed;
+        }
+    }
+
+    public delegate void ApplyRandomizeEventHandler(object sender, ApplyRandomizeEventArgs e);
 }
