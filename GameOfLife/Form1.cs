@@ -32,6 +32,9 @@ namespace GameOfLife
         // Generation count
         int generations = 0;
 
+        // living cells
+        int livingCells = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -46,36 +49,6 @@ namespace GameOfLife
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
-        }
-
-        private void Randomize()
-        {
-            // Time
-            Random rand = new Random();
-
-            // Seed
-
-            int xLen = universe.GetLength(0);
-            int yLen = universe.GetLength(1);
-
-            int val;
-
-            for (int x = 0; x < xLen; x++)
-            {
-                for (int y = 0; y < yLen; y++)
-                {
-                    val = rand.Next(0, 2);
-
-                    if (val == 0)
-                    {
-                        universe[x, y] = true;
-                    }
-                    else if (val == 1 || val == 2)
-                    {
-                        universe[x, y] = false;
-                    }
-                }
-            }
         }
 
         // Calculate the next generation of cells
@@ -140,6 +113,22 @@ namespace GameOfLife
 
             // Update status strip generations
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+
+            for (int x = 0; x < universe.GetLength(0); x++)
+            {
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    if (universe[x, y] == true)
+                    {
+                        livingCells += 1;
+                    }
+                }
+            }
+
+            // Add number of living cells to status strip
+            toolStripStatusLabelGenerations.Text += "    Living Cells = " + livingCells;
+
+            livingCells = 0;
         }
 
         // The event called by the timer every Interval milliseconds.
