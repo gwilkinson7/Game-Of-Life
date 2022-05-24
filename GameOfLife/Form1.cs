@@ -696,12 +696,12 @@ namespace GameOfLife
                     maxWidth = row.Length;
                 }
 
-                // Resize the current universe and scratchPad
-                // to the width and height of the file calculated above.
+                // check if imported file can exist in the current universe
                 if (maxWidth > universe.GetLength(0) || maxHeight > universe.GetLength(1))
                 {
                     // custom error dialogue
-                    MessageBox.Show("The pattern you are trying to import exists in a location \nin the current universe that does not exist.", "Something Went Wrong.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The universe you are trying to import is bigger than the current universe.", "Something Went Wrong.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
                 // Reset the file pointer back to the beginning of the file.
