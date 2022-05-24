@@ -82,5 +82,17 @@ namespace GameOfLife.Properties {
                 this["YValue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowNeighbors {
+            get {
+                return ((bool)(this["ShowNeighbors"]));
+            }
+            set {
+                this["ShowNeighbors"] = value;
+            }
+        }
     }
 }

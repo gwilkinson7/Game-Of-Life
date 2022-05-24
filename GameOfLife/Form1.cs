@@ -35,6 +35,9 @@ namespace GameOfLife
         // living cells
         int livingCells = 0;
 
+        // show neighbors
+        bool showNeighbors;
+
         public Form1()
         {
             InitializeComponent();
@@ -44,11 +47,33 @@ namespace GameOfLife
             cellColor = Properties.Settings.Default.CellColor;
             universeType = Properties.Settings.Default.UniverseType;
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
+            showNeighbors = Properties.Settings.Default.ShowNeighbors;
 
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
+
+            // default checkmarks
+            if (universeType == "Finite")
+            {
+                linearToolStripMenuItem.Checked = true;
+                toroidalToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                linearToolStripMenuItem.Checked = false;
+                toroidalToolStripMenuItem.Checked = true;
+            }
+
+            if (showNeighbors == true)
+            {
+                neighborCountToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                neighborCountToolStripMenuItem.Checked = false;
+            }
         }
 
         // Calculate the next generation of cells
@@ -172,6 +197,30 @@ namespace GameOfLife
 
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+
+
+                    if (showNeighbors == true)
+                    {
+                        // Center text inside cells
+                        Font font = new Font("Arial", 10f);
+
+                        StringFormat stringFormat = new StringFormat();
+                        stringFormat.Alignment = StringAlignment.Center;
+                        stringFormat.LineAlignment = StringAlignment.Center;
+
+                        int neighbors;
+
+                        if (universeType == "Finite")
+                        {
+                            neighbors = CountNeighborsFinite(x, y);
+                        }
+                        else
+                        {
+                            neighbors = CountNeighborsToroidal(x, y);
+                        }
+
+                        e.Graphics.DrawString(neighbors.ToString(), font, Brushes.White, cellRect, stringFormat);
+                    }
                 }
             }
 
@@ -380,12 +429,16 @@ namespace GameOfLife
         // Universe Type Toroidal
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            toroidalToolStripMenuItem.Checked = true;
+            linearToolStripMenuItem.Checked = false;
             universeType = "Toroidal";
         }
 
         // Universe Type Finite
         private void linearToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            toroidalToolStripMenuItem.Checked = false;
+            linearToolStripMenuItem.Checked = true;
             universeType = "Finite";
         }
 
@@ -398,6 +451,7 @@ namespace GameOfLife
             Properties.Settings.Default.UniverseType = universeType;
             Properties.Settings.Default.XValue = universe.GetLength(0);
             Properties.Settings.Default.YValue = universe.GetLength(1);
+            Properties.Settings.Default.ShowNeighbors = showNeighbors;
 
             // Save memory representation of the file
             Properties.Settings.Default.Save();
@@ -413,6 +467,12 @@ namespace GameOfLife
             cellColor = Properties.Settings.Default.CellColor;
             universeType = Properties.Settings.Default.UniverseType;
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
+            showNeighbors = Properties.Settings.Default.ShowNeighbors;
+
+            // reset checkmarks
+            neighborCountToolStripMenuItem.Checked = false;
+            toroidalToolStripMenuItem.Checked = false;
+            linearToolStripMenuItem.Checked = true;
 
             graphicsPanel1.Invalidate();
         }
@@ -427,6 +487,28 @@ namespace GameOfLife
             cellColor = Properties.Settings.Default.CellColor;
             universeType = Properties.Settings.Default.UniverseType;
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
+            showNeighbors = Properties.Settings.Default.ShowNeighbors;
+
+            // reset checkmarks
+            if (showNeighbors == true)
+            {
+                neighborCountToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                neighborCountToolStripMenuItem.Checked = false;
+            }
+
+            if (universeType == "Finite")
+            {
+                toroidalToolStripMenuItem.Checked = false;
+                linearToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                toroidalToolStripMenuItem.Checked = true;
+                linearToolStripMenuItem.Checked = false;
+            }
 
             graphicsPanel1.Invalidate();
         }
@@ -619,7 +701,7 @@ namespace GameOfLife
                 if (maxWidth > universe.GetLength(0) || maxHeight > universe.GetLength(1))
                 {
                     // custom error dialogue
-
+                    MessageBox.Show("The pattern you are trying to import exists in a location \nin the current universe that does not exist.", "Something Went Wrong.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 // Reset the file pointer back to the beginning of the file.
@@ -763,6 +845,15 @@ namespace GameOfLife
 
             graphicsPanel1.Invalidate();
 
+        }
+
+        private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showNeighbors = !showNeighbors;
+
+            neighborCountToolStripMenuItem.Checked = !neighborCountToolStripMenuItem.Checked;
+
+            graphicsPanel1.Invalidate();
         }
     }
     public class ApplyEventArgs : EventArgs
