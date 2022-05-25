@@ -41,6 +41,9 @@ namespace GameOfLife
         // show grid
         bool showGrid;
 
+        // Generation speed
+        public static int generationSpeed;
+
         public Form1()
         {
             InitializeComponent();
@@ -52,9 +55,10 @@ namespace GameOfLife
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
             showNeighbors = Properties.Settings.Default.ShowNeighbors;
             showGrid = Properties.Settings.Default.ShowGrid;
+            generationSpeed = Properties.Settings.Default.GenerationSpeed;
 
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = generationSpeed; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
 
@@ -415,7 +419,7 @@ namespace GameOfLife
             dialog.Color = graphicsPanel1.BackColor;
 
             // run dialog box
-            if(DialogResult.OK == dialog.ShowDialog())
+            if (DialogResult.OK == dialog.ShowDialog())
             {
                 graphicsPanel1.BackColor = dialog.Color;
 
@@ -468,6 +472,7 @@ namespace GameOfLife
             Properties.Settings.Default.YValue = universe.GetLength(1);
             Properties.Settings.Default.ShowNeighbors = showNeighbors;
             Properties.Settings.Default.ShowGrid = showGrid;
+            Properties.Settings.Default.GenerationSpeed = generationSpeed;
 
             // Save memory representation of the file
             Properties.Settings.Default.Save();
@@ -485,6 +490,7 @@ namespace GameOfLife
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
             showNeighbors = Properties.Settings.Default.ShowNeighbors;
             showGrid = Properties.Settings.Default.ShowGrid;
+            generationSpeed = Properties.Settings.Default.GenerationSpeed;
 
             // reset checkmarks
             neighborCountToolStripMenuItem.Checked = false;
@@ -507,6 +513,7 @@ namespace GameOfLife
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
             showNeighbors = Properties.Settings.Default.ShowNeighbors;
             showGrid = Properties.Settings.Default.ShowGrid;
+            generationSpeed = Properties.Settings.Default.GenerationSpeed;
 
             // reset checkmarks
             if (showNeighbors == true)
@@ -574,14 +581,14 @@ namespace GameOfLife
                     {
                         // If the universe[x,y] is alive then append 'O' (capital O)
                         // to the row string.
-                        if(universe[x, y] == true)
+                        if (universe[x, y] == true)
                         {
                             currentRow += 'O';
                         }
 
                         // Else if the universe[x,y] is dead then append '.' (period)
                         // to the row string.
-                        else if(universe[x, y] == false)
+                        else if (universe[x, y] == false)
                         {
                             currentRow += '.';
                         }
@@ -892,6 +899,20 @@ namespace GameOfLife
 
             graphicsPanel1.Invalidate();
         }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            GenerationSpeedDialog dlg = new GenerationSpeedDialog();
+
+            // set properties
+            dlg.GenerationSpeed = generationSpeed;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                // get properties
+                generationSpeed = dlg.GenerationSpeed;
+            }
+        }
     }
     public class ApplyEventArgs : EventArgs
     {
@@ -936,4 +957,22 @@ namespace GameOfLife
     }
 
     public delegate void ApplyRandomizeEventHandler(object sender, ApplyRandomizeEventArgs e);
+
+    public class GenerationSpeedEventArgs : EventArgs
+    {
+        int genSpeed;
+
+        public int GenerationSpeed
+        {
+            get { return genSpeed; }
+            set { genSpeed = value; }
+        }
+
+        public GenerationSpeedEventArgs(int genSpeed)
+        {
+            this.genSpeed = genSpeed;
+        }
+    } 
+
+    public delegate void GenerationSpeedEventHandler(object sender, GenerationSpeedEventArgs e);
 }

@@ -41,9 +41,10 @@ namespace GameOfLife
             this.OK.Location = new System.Drawing.Point(12, 77);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(75, 23);
-            this.OK.TabIndex = 0;
+            this.OK.TabIndex = 1;
             this.OK.Text = "OK";
             this.OK.UseVisualStyleBackColor = true;
+            this.OK.Click += new System.EventHandler(this.OK_Click);
             // 
             // Cancel
             // 
@@ -51,7 +52,7 @@ namespace GameOfLife
             this.Cancel.Location = new System.Drawing.Point(126, 77);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
-            this.Cancel.TabIndex = 1;
+            this.Cancel.TabIndex = 2;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
             // 
@@ -60,7 +61,7 @@ namespace GameOfLife
             this.textBox1.Location = new System.Drawing.Point(12, 36);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(189, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBox1.TabIndex = 0;
             // 
             // GenerationSpeedMs
             // 
@@ -73,8 +74,10 @@ namespace GameOfLife
             // 
             // GenerationSpeedDialog
             // 
+            this.AcceptButton = this.OK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(214, 112);
             this.Controls.Add(this.GenerationSpeedMs);
             this.Controls.Add(this.textBox1);
@@ -84,6 +87,7 @@ namespace GameOfLife
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GenerationSpeedDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "+";
             this.ResumeLayout(false);
             this.PerformLayout();

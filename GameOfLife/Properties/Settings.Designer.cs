@@ -106,5 +106,17 @@ namespace GameOfLife.Properties {
                 this["ShowGrid"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int GenerationSpeed {
+            get {
+                return ((int)(this["GenerationSpeed"]));
+            }
+            set {
+                this["GenerationSpeed"] = value;
+            }
+        }
     }
 }

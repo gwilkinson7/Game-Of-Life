@@ -47,6 +47,7 @@ namespace GameOfLife
             this.toroidalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.universeSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +72,6 @@ namespace GameOfLife
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new GameOfLife.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -219,6 +219,13 @@ namespace GameOfLife
             this.universeSizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.universeSizeToolStripMenuItem.Text = "&Universe Size";
             this.universeSizeToolStripMenuItem.Click += new System.EventHandler(this.universeSizeToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Text = "&Generation Speed";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // toolStripSeparator2
             // 
@@ -415,12 +422,6 @@ namespace GameOfLife
             this.modalToolStripMenuItem.Name = "modalToolStripMenuItem";
             this.modalToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.modalToolStripMenuItem.Text = "Modal";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem4.Text = "&Generation Speed";
             // 
             // graphicsPanel1
             // 
