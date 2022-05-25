@@ -71,8 +71,8 @@ namespace GameOfLife
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new GameOfLife.GraphicsPanel();
-            this.GenerationSpeed = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -168,7 +168,7 @@ namespace GameOfLife
             this.toolStripMenuItem1,
             this.universeTypeToolStripMenuItem,
             this.universeSizeToolStripMenuItem,
-            this.GenerationSpeed,
+            this.toolStripMenuItem4,
             this.toolStripSeparator2,
             this.resetToolStripMenuItem,
             this.reloadToolStripMenuItem});
@@ -251,14 +251,14 @@ namespace GameOfLife
             // randomizeBySeedToolStripMenuItem
             // 
             this.randomizeBySeedToolStripMenuItem.Name = "randomizeBySeedToolStripMenuItem";
-            this.randomizeBySeedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.randomizeBySeedToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.randomizeBySeedToolStripMenuItem.Text = "Randomize By &Seed";
             this.randomizeBySeedToolStripMenuItem.Click += new System.EventHandler(this.randomizeBySeedToolStripMenuItem_Click);
             // 
             // randomizeByTimeToolStripMenuItem
             // 
             this.randomizeByTimeToolStripMenuItem.Name = "randomizeByTimeToolStripMenuItem";
-            this.randomizeByTimeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.randomizeByTimeToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.randomizeByTimeToolStripMenuItem.Text = "Randomize By &Time";
             this.randomizeByTimeToolStripMenuItem.Click += new System.EventHandler(this.randomizeByTimeToolStripMenuItem_Click);
             // 
@@ -274,14 +274,14 @@ namespace GameOfLife
             // gridToolStripMenuItem
             // 
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.gridToolStripMenuItem.Text = "&Grid";
             this.gridToolStripMenuItem.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
             // neighborCountToolStripMenuItem
             // 
             this.neighborCountToolStripMenuItem.Name = "neighborCountToolStripMenuItem";
-            this.neighborCountToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neighborCountToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.neighborCountToolStripMenuItem.Text = "&Neighbor Count";
             this.neighborCountToolStripMenuItem.Click += new System.EventHandler(this.neighborCountToolStripMenuItem_Click);
             // 
@@ -416,6 +416,12 @@ namespace GameOfLife
             this.modalToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.modalToolStripMenuItem.Text = "Modal";
             // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Text = "&Generation Speed";
+            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -425,12 +431,6 @@ namespace GameOfLife
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
-            // 
-            // GenerationSpeed
-            // 
-            this.GenerationSpeed.Name = "GenerationSpeed";
-            this.GenerationSpeed.Size = new System.Drawing.Size(180, 22);
-            this.GenerationSpeed.Text = "&Generation Speed";
             // 
             // Form1
             // 
@@ -500,7 +500,7 @@ namespace GameOfLife
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem neighborCountToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem GenerationSpeed;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
     }
 }
 
