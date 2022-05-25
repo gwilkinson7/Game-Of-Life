@@ -1,5 +1,5 @@
-# GameOfLife
-Small demo functionality for a cellular automata program modelling Conway's Game Of Life.
+# Game Of Life
+Small demo functionality for a cellular automata program modelling Conway's Game Of Life using the .NET framework and Windows Forms.
 
 # Welcome!
 Thank you for taking a look at my small little project here. The goal was to create all of the functionality to render Conway's Game of Life, but I got carried away
