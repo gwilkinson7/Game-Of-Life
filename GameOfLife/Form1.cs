@@ -911,6 +911,7 @@ namespace GameOfLife
             {
                 // get properties
                 generationSpeed = dlg.GenerationSpeed;
+                timer.Interval = generationSpeed;
             }
         }
     }
