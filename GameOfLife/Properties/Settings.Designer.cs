@@ -94,5 +94,17 @@ namespace GameOfLife.Properties {
                 this["ShowNeighbors"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowGrid {
+            get {
+                return ((bool)(this["ShowGrid"]));
+            }
+            set {
+                this["ShowGrid"] = value;
+            }
+        }
     }
 }

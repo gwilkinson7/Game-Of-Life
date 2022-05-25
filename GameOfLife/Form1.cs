@@ -38,6 +38,9 @@ namespace GameOfLife
         // show neighbors
         bool showNeighbors;
 
+        // show grid
+        bool showGrid;
+
         public Form1()
         {
             InitializeComponent();
@@ -48,6 +51,7 @@ namespace GameOfLife
             universeType = Properties.Settings.Default.UniverseType;
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
             showNeighbors = Properties.Settings.Default.ShowNeighbors;
+            showGrid = Properties.Settings.Default.ShowGrid;
 
             // Setup the timer
             timer.Interval = 100; // milliseconds
@@ -73,6 +77,15 @@ namespace GameOfLife
             else
             {
                 neighborCountToolStripMenuItem.Checked = false;
+            }
+
+            if (showGrid == true)
+            {
+                gridToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                gridToolStripMenuItem.Checked = false;
             }
         }
 
@@ -195,9 +208,11 @@ namespace GameOfLife
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
 
-                    // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-
+                    if (showGrid == true)
+                    {
+                        // Outline the cell with a pen
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    }
 
                     if (showNeighbors == true)
                     {
@@ -452,6 +467,7 @@ namespace GameOfLife
             Properties.Settings.Default.XValue = universe.GetLength(0);
             Properties.Settings.Default.YValue = universe.GetLength(1);
             Properties.Settings.Default.ShowNeighbors = showNeighbors;
+            Properties.Settings.Default.ShowGrid = showGrid;
 
             // Save memory representation of the file
             Properties.Settings.Default.Save();
@@ -468,11 +484,13 @@ namespace GameOfLife
             universeType = Properties.Settings.Default.UniverseType;
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
             showNeighbors = Properties.Settings.Default.ShowNeighbors;
+            showGrid = Properties.Settings.Default.ShowGrid;
 
             // reset checkmarks
             neighborCountToolStripMenuItem.Checked = false;
             toroidalToolStripMenuItem.Checked = false;
             linearToolStripMenuItem.Checked = true;
+            gridToolStripMenuItem.Checked = true;
 
             graphicsPanel1.Invalidate();
         }
@@ -488,6 +506,7 @@ namespace GameOfLife
             universeType = Properties.Settings.Default.UniverseType;
             universe = new bool[Properties.Settings.Default.XValue, Properties.Settings.Default.YValue];
             showNeighbors = Properties.Settings.Default.ShowNeighbors;
+            showGrid = Properties.Settings.Default.ShowGrid;
 
             // reset checkmarks
             if (showNeighbors == true)
@@ -497,6 +516,15 @@ namespace GameOfLife
             else
             {
                 neighborCountToolStripMenuItem.Checked = false;
+            }
+
+            if (showGrid == true)
+            {
+                gridToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                gridToolStripMenuItem.Checked = false;
             }
 
             if (universeType == "Finite")
@@ -852,6 +880,15 @@ namespace GameOfLife
             showNeighbors = !showNeighbors;
 
             neighborCountToolStripMenuItem.Checked = !neighborCountToolStripMenuItem.Checked;
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showGrid = !showGrid;
+
+            gridToolStripMenuItem.Checked = !gridToolStripMenuItem.Checked;
 
             graphicsPanel1.Invalidate();
         }
